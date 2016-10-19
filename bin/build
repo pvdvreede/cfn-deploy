@@ -1,0 +1,8 @@
+#! /bin/bash
+
+set -e
+
+stack setup
+stack build
+
+docker build -t pvdvreede/cfn-deploy .
