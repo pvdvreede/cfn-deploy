@@ -31,3 +31,6 @@ main = shakeArgs shakeOptions{shakeFiles=cfnDir} $ do
         templates <- getDirectoryDirs templateDir
         need $ map (\x -> cfnDir </> (rubyTemplateName x) <.> "json") templates
 
+    -- TODO: Add help task that will list all the template and param commands
+    -- TODO: Add init task to create the docker-compose.yml file automatically
+    -- TODO: Add create task to setup a new template file structure
