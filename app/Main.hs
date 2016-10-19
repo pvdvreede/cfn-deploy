@@ -5,16 +5,18 @@ import Development.Shake.Command
 import Development.Shake.FilePath
 import Development.Shake.Util
 
+templateDir = "templates"
+cfnDir = "cfn"
 
 rubyTemplateName :: FilePath -> String
 rubyTemplateName = dropExtension . takeFileName
 
 
 main :: IO ()
-main = shakeArgs shakeOptions{shakeFiles="cfn"} $ do
+main = shakeArgs shakeOptions{shakeFiles=cfnDir} $ do
 
-    "cfn//*.json" %> \out -> do
-        let cfnDir = "lib" </> rubyTemplateName out
+    cfnDir ++ "//*.json" %> \out -> do
+        let cfnDir = templateDir </> rubyTemplateName out
         let cfnTemplate = cfnDir </> rubyTemplateName out <.> "rb"
         files <- getDirectoryFiles cfnDir ["*"]
         need files
@@ -23,9 +25,9 @@ main = shakeArgs shakeOptions{shakeFiles="cfn"} $ do
 
     phony "clean" $ do
         putNormal "Cleaning files in cfn..."
-        removeFilesAfter "cfn" ["//*"]
+        removeFilesAfter cfnDir ["//*"]
 
     phony "compile" $ do
-        templates <- getDirectoryDirs "lib"
-        need $ map (\x -> "cfn" </> (rubyTemplateName x) <.> "json") templates
+        templates <- getDirectoryDirs templateDir
+        need $ map (\x -> cfnDir </> (rubyTemplateName x) <.> "json") templates
 
