@@ -7,6 +7,5 @@ RUN apk add \
   py-pip
 RUN pip install awscli
 RUN gem install --no-rdoc --no-ri cfndsl stackup
-COPY .stack-work/install/x86_64-linux-ncurses6/lts-7.4/8.0.1/bin/cfn-deploy /usr/local/bin/
+COPY .stack-work/install/x86_64-linux/lts-7.4/8.0.1/bin/cfn-deploy /usr/local/bin/
 ENTRYPOINT ["cfn-deploy"]
-

@@ -2,7 +2,6 @@
 
 set -e
 
-stack setup
-stack build
+docker-compose run base
 
 docker build -t pvdvreede/cfn-deploy .

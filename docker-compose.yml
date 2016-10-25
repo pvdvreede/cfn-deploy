@@ -1,0 +1,9 @@
+---
+base:
+  image: haskell:latest
+  volumes:
+    - ".:/app"
+    - ".stack:/root/.stack"
+  working_dir: "/app"
+  command: |
+    stack build --ghc-options='-static -optc-static -optl-static -optl-pthread'
